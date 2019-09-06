@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
@@ -21,9 +21,9 @@ export default class App extends Component {
   state = { ...initialState }
 
   addDigit = n => {
-    if(n === '.' && this.state.displayValue.includes('.')) return
     const clearDisplay = this.state.displayValue === '0' 
     || this.state.clearDisplay
+    if(n === '.' && this.state.displayValue.includes('.') && !clearDisplay) return
     const currentValue = clearDisplay ? '' : this.state.displayValue
     const displayValue = currentValue + n
     this.setState({ displayValue, clearDisplay: false })
@@ -50,7 +50,7 @@ export default class App extends Component {
       }
       values[1] = 0
       this.setState({
-        displayValue: value[0],
+        displayValue: `${value[0]}`,
         operation: equals ? null : operation,
         current: equals ? 0 : 1,
         clearDisplay: !equals,
